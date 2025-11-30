@@ -19,11 +19,7 @@ const upload = getUploadMiddleware();
  * @access  Admin only
  * @body    FormData with field name "image"
  */
-router.post(
-  '/image',
-  upload.single('image'),
-  uploadController.uploadImage
-);
+router.post('/image',upload.single('image'),uploadController.uploadImage);
 
 /**
  * @route   POST /api/upload/images
@@ -31,10 +27,6 @@ router.post(
  * @access  Admin only
  * @body    FormData with field name "images"
  */
-router.post(
-  '/images',
-  upload.array('images', 10),
-  uploadController.uploadMultipleImages
-);
+router.post('/images',upload.array('images', 10),uploadController.uploadMultipleImages);
 
 module.exports = router;

@@ -39,52 +39,22 @@ router.get('/services/block-schemas', serviceController.getBlockSchemas);
 router.get('/services', serviceController.getAdminServices); 
 
 // Lấy chi tiết service để edit
-router.get(
-  '/services/:id',
-  idParamValidation,
-  validate,
-  serviceController.getServiceForEdit
-);
+router.get('/services/:id',idParamValidation,validate,serviceController.getServiceForEdit);
 
 // Tạo dịch vụ mới
-router.post(
-  '/services',
-  createServiceValidation,
-  validate,
-  serviceController.createService
-);
+router.post('/services',createServiceValidation,validate,serviceController.createService);
 
 // Cập nhật dịch vụ
-router.put(
-  '/services/:id',
-  updateServiceValidation,
-  validate,
-  serviceController.updateService
-);
+router.put('/services/:id',updateServiceValidation,validate,serviceController.updateService);
 
 // Cập nhật layout
-router.put(
-  '/services/:id/layout',
-  idParamValidation,
-  validate,
-  serviceController.updateServiceLayout
-);
+router.put('/services/:id/layout',idParamValidation,validate,serviceController.updateServiceLayout);
 
 // Bật/Tắt dịch vụ
-router.patch(
-  '/services/:id/toggle',
-  idParamValidation,
-  validate,
-  serviceController.toggleService
-);
+router.patch('/services/:id/toggle',idParamValidation,validate,serviceController.toggleService);
 
 // Xóa dịch vụ
-router.delete(
-  '/services/:id',
-  idParamValidation,
-  validate,
-  serviceController.deleteService
-);
+router.delete('/services/:id',idParamValidation,validate,serviceController.deleteService);
 
 
 // ============================================

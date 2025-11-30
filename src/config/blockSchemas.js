@@ -1,5 +1,5 @@
 /**
- * Dynamic Block Schemas - FINAL UPDATED VERSION
+ * Dynamic Block Schemas - MATCHING SQL DATA STRUCTURE
  * File: src/config/blockSchemas.js
  */
 
@@ -8,92 +8,77 @@ const BLOCK_TYPES = {
   INTRO: 'intro',
   DEFINITION: 'definition',
   PRICING: 'pricing',
-  TASK_TAB: 'task_tab', // 🔥 SỬA: Đồng bộ với DB là "task_tab" (có gạch dưới)
+  TASK_TAB: 'task_tab',
   PROCESS: 'process',
   BOOKING: 'booking'
 };
 
-// 2. Schema chi tiết cho từng Block
+// 2. Schema chi tiết cho từng Block (Backend Validation)
 const BLOCK_SCHEMAS = {
   // --- Block 1: Intro Section ---
+  // SQL Data: { title, banner_image_url }
   [BLOCK_TYPES.INTRO]: {
     type: BLOCK_TYPES.INTRO,
     name: 'Giới thiệu',
-    description: 'Banner giới thiệu với hình ảnh và nội dung',
+    description: 'Banner giới thiệu đầu trang',
     fields: {
-      heading: {
+      title: { // SỬA: heading -> title
         type: 'text',
-        label: 'Tiêu đề',
-        required: true,
-        placeholder: 'VD: Dịch vụ dọn nhà chuyên nghiệp'
+        label: 'Tiêu đề (H1)',
+        required: true
+      },
+      banner_image_url: { // SỬA: image_url -> banner_image_url
+        type: 'image',
+        label: 'Ảnh nền Banner',
+        required: true
+      },
+      // Layout và content có thể có hoặc không tùy data cũ, để required: false cho an toàn
+      layout: { 
+        type: 'select',
+        label: 'Bố cục',
+        required: false, 
+        options: ['image-left', 'image-right', 'text-only'],
+        default: 'image-left'
       },
       content: {
         type: 'richtext',
-        label: 'Nội dung',
-        required: true,
-        placeholder: 'Mô tả chi tiết về dịch vụ...'
-      },
-      image_url: {
-        type: 'image',
-        label: 'Hình ảnh',
-        required: true,
-        accept: 'image/*',
-        maxSize: 5242880 // 5MB
-      },
-      layout: {
-        type: 'select',
-        label: 'Bố cục',
-        required: true,
-        options: [
-          { value: 'image-left', label: 'Hình bên trái' },
-          { value: 'image-right', label: 'Hình bên phải' },
-          { value: 'text-only', label: 'Chỉ văn bản' }
-        ],
-        default: 'image-left'
+        label: 'Nội dung mô tả',
+        required: false
       }
     },
     defaultData: {
-      heading: 'Dịch vụ dọn nhà theo giờ',
-      content: 'Chúng tôi cung cấp dịch vụ dọn dẹp chuyên nghiệp...',
-      image_url: '',
+      title: 'Dịch vụ dọn nhà',
+      banner_image_url: '',
       layout: 'image-left'
     }
   },
 
-  // --- Block 2: Definition/Features ---
+  // --- Block 2: Definition ---
+  // SQL Data: { title, content }
   [BLOCK_TYPES.DEFINITION]: {
     type: BLOCK_TYPES.DEFINITION,
-    name: 'Định nghĩa / Tính năng',
-    description: 'Danh sách các tính năng nổi bật',
+    name: 'Mô tả / Lợi ích',
+    description: 'Đoạn văn bản giới thiệu chi tiết',
     fields: {
-      heading: {
+      title: { // SỬA: heading -> title
         type: 'text',
-        label: 'Tiêu đề chung',
-        required: true,
-        placeholder: 'VD: Tại sao chọn chúng tôi?'
+        label: 'Tiêu đề mục',
+        required: true
       },
-      items: {
-        type: 'array',
-        label: 'Danh sách tính năng',
-        required: true,
-        minItems: 1,
-        maxItems: 10,
-        itemSchema: {
-          icon: { type: 'icon', label: 'Icon', required: false },
-          title: { type: 'text', label: 'Tiêu đề', required: true },
-          description: { type: 'textarea', label: 'Mô tả', required: true }
-        }
+      content: { // SỬA: items -> content (Theo cấu trúc FE bạn gửi trước đó)
+        type: 'richtext',
+        label: 'Nội dung (HTML)',
+        required: true
       }
     },
     defaultData: {
-      heading: 'Ưu điểm vượt trội',
-      items: [
-        { icon: 'fa-check', title: 'Chuyên nghiệp', description: 'Đội ngũ đào tạo bài bản' }
-      ]
+      title: 'Về dịch vụ',
+      content: '<p>Mô tả chi tiết...</p>'
     }
   },
 
   // --- Block 3: Pricing Table ---
+  // SQL Data: { service_title, note, subservices: [{ id, subservice_title, price }] }
   [BLOCK_TYPES.PRICING]: {
     type: BLOCK_TYPES.PRICING,
     name: 'Bảng giá',
@@ -101,9 +86,8 @@ const BLOCK_SCHEMAS = {
     fields: {
       service_title: {
         type: 'text',
-        label: 'Tên dịch vụ',
-        required: true,
-        placeholder: 'VD: Dọn nhà theo phòng'
+        label: 'Tên bảng giá',
+        required: true
       },
       note: {
         type: 'textarea',
@@ -115,31 +99,27 @@ const BLOCK_SCHEMAS = {
         label: 'Danh sách gói dịch vụ',
         required: true,
         minItems: 1,
-        maxItems: 20,
         itemSchema: {
-          // 🔥 SỬA: Thêm field ID để Backend map logic tính tiền
-          id: { type: 'text', label: 'Mã gói (ID)', required: true, placeholder: 'VD: truck_1t5, 2br' },
-          subservice_title: { type: 'text', label: 'Tên gói', required: true },
+          id: { type: 'text', label: 'Mã gói (ID)', required: true },
+          subservice_title: { type: 'text', label: 'Tên gói', required: true }, // SỬA: subservice_title
           price: { type: 'number', label: 'Giá (VNĐ)', required: true, min: 0 }
         }
       }
     },
     defaultData: {
-      service_title: 'Dọn nhà',
-      note: 'Giá đã bao gồm VAT',
-      subservices: [
-        { id: '2br', subservice_title: '2 phòng ngủ', price: 150000 }
-      ]
+      service_title: 'Bảng giá dịch vụ',
+      subservices: []
     }
   },
 
   // --- Block 4: Task Tabs ---
+  // SQL Data: { title, tabs: [{ tab_title, description, image_url }] }
   [BLOCK_TYPES.TASK_TAB]: {
     type: BLOCK_TYPES.TASK_TAB,
     name: 'Tab công việc',
-    description: 'Hiển thị các tab với nội dung khác nhau',
+    description: 'Hiển thị các tab nội dung',
     fields: {
-      heading: {
+      title: { // SỬA: heading -> title
         type: 'text',
         label: 'Tiêu đề chung',
         required: true
@@ -148,62 +128,59 @@ const BLOCK_SCHEMAS = {
         type: 'array',
         label: 'Danh sách tabs',
         required: true,
-        minItems: 2, // 🔥 Logic: Task tab cần ít nhất 2 tab mới có ý nghĩa
+        minItems: 1,
         itemSchema: {
-          title: { type: 'text', label: 'Tên tab', required: true },
-          content: { type: 'richtext', label: 'Nội dung', required: true },
+          tab_title: { type: 'text', label: 'Tên tab', required: true }, // SỬA: title -> tab_title
+          description: { type: 'richtext', label: 'Nội dung', required: true }, // SỬA: content -> description
           image_url: { type: 'image', label: 'Hình ảnh', required: true }
         }
       }
     },
     defaultData: {
-      heading: 'Quy trình làm việc',
-      tabs: [
-        { title: 'Phòng khách', content: 'Mô tả...', image_url: '' },
-        { title: 'Phòng ngủ', content: 'Mô tả...', image_url: '' }
-      ]
+      title: 'Chi tiết công việc',
+      tabs: []
     }
   },
 
   // --- Block 5: Process Timeline ---
+  // SQL Data: { title, steps: [{ number, step_title, description, image_url }] }
   [BLOCK_TYPES.PROCESS]: {
     type: BLOCK_TYPES.PROCESS,
     name: 'Quy trình',
     description: 'Hiển thị quy trình từng bước',
     fields: {
-      heading: {
+      title: { // SỬA: heading -> title
         type: 'text',
-        label: 'Tiêu đề chung',
+        label: 'Tiêu đề quy trình',
         required: true
       },
       steps: {
         type: 'array',
         label: 'Danh sách bước',
         required: true,
-        minItems: 1, // Quy trình ít nhất 1 bước
+        minItems: 1,
         itemSchema: {
           number: { type: 'number', label: 'Số thứ tự', required: true, min: 1 },
-          title: { type: 'text', label: 'Tiêu đề bước', required: true },
+          step_title: { type: 'text', label: 'Tên bước', required: true }, // SỬA: title -> step_title
           description: { type: 'textarea', label: 'Mô tả', required: true },
           image_url: { type: 'image', label: 'Hình ảnh', required: true }
         }
       }
     },
     defaultData: {
-      heading: 'Quy trình 4 bước',
-      steps: [
-        { number: 1, title: 'Đặt lịch', description: 'Chọn giờ...', image_url: '' }
-      ]
+      title: 'Quy trình làm việc',
+      steps: []
     }
   },
 
-  // --- Block 6: Booking Form (Dynamic) ---
+  // --- Block 6: Booking Form ---
+  // SQL Data: { title, button_text, image_url, form_schema: [...] }
   [BLOCK_TYPES.BOOKING]: {
     type: BLOCK_TYPES.BOOKING,
     name: 'Form đặt lịch',
     description: 'Khối booking với form động',
     fields: {
-      title: {
+      title: { // SỬA: heading -> title
         type: 'text',
         label: 'Tiêu đề',
         required: true
@@ -217,7 +194,7 @@ const BLOCK_SCHEMAS = {
         type: 'text',
         label: 'Text nút',
         required: false,
-        default: 'Book now'
+        default: 'Đặt ngay'
       },
       form_schema: {
         type: 'array',
@@ -229,12 +206,7 @@ const BLOCK_SCHEMAS = {
             type: 'select', 
             label: 'Loại field', 
             required: true,
-            options: [
-              { value: 'text', label: 'Text' },
-              { value: 'select', label: 'Dropdown' },
-              { value: 'date', label: 'Date' },
-              { value: 'time', label: 'Time' } // 🔥 SỬA: Thêm Time picker (Bắt buộc cho Logic Booking)
-            ]
+            options: ['text', 'select', 'date', 'time']
           },
           label: { type: 'text', label: 'Label hiển thị', required: true },
           required: { type: 'boolean', label: 'Bắt buộc?', default: false },
@@ -245,17 +217,15 @@ const BLOCK_SCHEMAS = {
     defaultData: {
       title: 'Đặt lịch ngay',
       image_url: '',
-      button_text: 'Book now',
-      form_schema: [
-        { field_name: 'fullname', field_type: 'text', label: 'Họ tên', required: true },
-        { field_name: 'phone', field_type: 'text', label: 'Số điện thoại', required: true }
-      ]
+      button_text: 'Đặt ngay',
+      form_schema: []
     }
   }
 };
 
 /**
  * Validate block data theo schema
+ * Hàm này giữ nguyên logic, chỉ cần schema đúng là nó chạy đúng
  */
 const validateBlock = (blockType, blockData) => {
   const schema = BLOCK_SCHEMAS[blockType];
@@ -277,21 +247,19 @@ const validateBlock = (blockType, blockData) => {
     if (fieldConfig.required) {
       const isEmpty = value === undefined || value === null || value === '';
       if (isEmpty && value !== 0 && value !== false) {
-        errors.push(`Field "${fieldName}" (${fieldConfig.label}) là bắt buộc`);
-        return; // Dừng check tiếp nếu thiếu required
+        errors.push(`Field "${fieldName}" (${fieldConfig.label || fieldName}) là bắt buộc`);
+        return; 
       }
     }
 
-    // 2. Validate Array (Updated)
+    // 2. Validate Array
     if (fieldConfig.type === 'array') {
-      // Nếu có value nhưng không phải array
       if (value && !Array.isArray(value)) {
         errors.push(`Field "${fieldName}" phải là danh sách (array)`);
         return;
       }
 
       if (Array.isArray(value)) {
-        // 🔥 SỬA: Check minItems / maxItems
         if (fieldConfig.minItems && value.length < fieldConfig.minItems) {
             errors.push(`Field "${fieldName}" cần tối thiểu ${fieldConfig.minItems} phần tử`);
         }
@@ -308,13 +276,12 @@ const validateBlock = (blockType, blockData) => {
               // Check required sub-field
               if (subFieldConfig.required) {
                 const isSubEmpty = subValue === undefined || subValue === null || subValue === '';
-                // Check số 0
                 if (isSubEmpty && subValue !== 0 && subValue !== false) {
                   errors.push(`${fieldName}[${index}].${subFieldName} (${subFieldConfig.label}) là bắt buộc`);
                 }
               }
               
-              // Check Logic số (ví dụ giá tiền không được âm)
+              // Check Min number
               if (subFieldConfig.type === 'number') {
                  if (typeof subValue === 'number' && subFieldConfig.min !== undefined && subValue < subFieldConfig.min) {
                     errors.push(`${fieldName}[${index}].${subFieldName} phải lớn hơn hoặc bằng ${subFieldConfig.min}`);
