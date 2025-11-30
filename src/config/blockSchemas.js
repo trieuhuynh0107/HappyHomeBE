@@ -31,25 +31,11 @@ const BLOCK_SCHEMAS = {
         type: 'image',
         label: 'Ảnh nền Banner',
         required: true
-      },
-      // Layout và content có thể có hoặc không tùy data cũ, để required: false cho an toàn
-      layout: { 
-        type: 'select',
-        label: 'Bố cục',
-        required: false, 
-        options: ['image-left', 'image-right', 'text-only'],
-        default: 'image-left'
-      },
-      content: {
-        type: 'richtext',
-        label: 'Nội dung mô tả',
-        required: false
       }
     },
     defaultData: {
       title: 'Dịch vụ dọn nhà',
-      banner_image_url: '',
-      layout: 'image-left'
+      banner_image_url: ''
     }
   },
 
