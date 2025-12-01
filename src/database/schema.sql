@@ -105,75 +105,75 @@ INSERT INTO cleaners (name, phone, email, status) VALUES
 
 -- Services: Dọn nhà (ID 1)
 INSERT INTO services (name, description, base_price, duration_minutes, is_active, layout_config) VALUES
-('Dọn nhà theo giờ', 'Dịch vụ dọn dẹp nhà cửa theo giờ', 150000, 120, true, 
+('Home Cleaning', 'Home cleaning service', 150000, 120, true, 
 '[
-  {"type": "intro", "order": 0, "data": {"title": "Dịch vụ Dọn nhà", "banner_image_url": "https://res.cloudinary.com/dxtwiciz0/image/upload/v1764078515/cleaning-service/ha7wvcgzbltjsg4n5uhl.png"}},
-  {"type": "pricing", "order": 1, "data": {"service_title": "Gói dọn dẹp", "note": "Giá đã bao gồm VAT", "subservices": [{"id": "2br", "subservice_title": "Căn hộ 2 phòng", "price": 400000}, {"id": "3br", "subservice_title": "Căn hộ 3 phòng", "price": 550000}]}},
+  {"type": "intro", "order": 0, "data": {"title": "Home Cleaning Service", "banner_image_url": "https://res.cloudinary.com/dxtwiciz0/image/upload/v1764079306/cleaning-service/uzynzcrujxjby2f2qm8b.jpg"}},
+  {"type": "pricing", "order": 1, "data": {"service_title": "Cleaning Packages", "note": "Prices include VAT. Please note that the final cost may vary depending on the actual condition of your home, specific cleaning requests, the number of rooms, and any additional tasks required during the service.", "subservices": [{"id": "2br", "subservice_title": "2-Bedroom Apartment", "price": 400000}, {"id": "3br", "subservice_title": "3-Bedroom Apartment", "price": 550000}]}},
   {
   "type": "task_tab",
   "order": 2,
   "data": {
-    "title": "Chi tiết các hạng mục công việc",
+    "title": "Detailed Work Items",
     "tabs": [
       {
-        "tab_title": "Phòng Khách",
+        "tab_title": "Living Room",
         "image_url": "https://res.cloudinary.com/dxtwiciz0/image/upload/v1764079308/cleaning-service/rtbyxdk1z60abeg50dlj.jpg",
-        "description": "<ul><li>Quét và lau sạch sàn nhà, hút bụi thảm.</li><li>Lau bụi các bề mặt: bàn ghế, kệ tivi, tủ trưng bày.</li><li>Sắp xếp đồ đạc gọn gàng, đúng vị trí.</li><li>Lau sạch cửa kính, cửa ra vào (trong tầm với).</li><li>Đổ rác và thay túi rác mới.</li></ul>"
+        "description": "<ul><li>Sweep and mop floors; vacuum carpets.</li><li>Dust all surfaces: tables, chairs, TV stands, display cabinets.</li><li>Organize items neatly in their proper places.</li><li>Clean glass doors and entrance doors (within reachable height).</li><li>Empty trash bins and replace with new liners.</li></ul>"
       },
       {
-        "tab_title": "Phòng Bếp",
+        "tab_title": "Kitchen",
         "image_url": "https://res.cloudinary.com/dxtwiciz0/image/upload/v1764079306/cleaning-service/drimeim9uosrjnaicte5.jpg",
-        "description": "<ul><li>Rửa bát đĩa, nồi niêu và sắp xếp vào chạn.</li><li>Lau sạch bề mặt bếp gas/bếp từ và tường ốp bếp.</li><li>Vệ sinh bồn rửa chén, vòi nước.</li><li>Lau sạch bên ngoài tủ lạnh, lò vi sóng, tủ bếp.</li><li>Lau sàn bếp và đổ rác thải sinh hoạt.</li></ul>"
+        "description": "<ul><li>Wash dishes, pots, and pans; arrange them properly.</li><li>Clean stovetop surfaces and backsplash tiles.</li><li>Sanitize sink and faucet.</li><li>Wipe exterior surfaces of refrigerator, microwave, and kitchen cabinets.</li><li>Clean kitchen floors and dispose of household waste.</li></ul>"
       },
       {
-        "tab_title": "Phòng Ngủ",
+        "tab_title": "Bedroom",
         "image_url": "https://res.cloudinary.com/dxtwiciz0/image/upload/v1764079305/cleaning-service/tmisxw1xa6ecjmhkqnjr.jpg",
-        "description": "<ul><li>Gấp chăn màn, sắp xếp gối gọn gàng trên giường.</li><li>Thay ga trải giường (nếu khách hàng yêu cầu và có sẵn ga).</li><li>Lau bụi bàn trang điểm, tủ đầu giường, khung ảnh.</li><li>Hút bụi hoặc lau sàn nhà sạch sẽ.</li><li>Thu gom quần áo bẩn vào giỏ (nếu có).</li></ul>"
+        "description": "<ul><li>Fold blankets and arrange pillows neatly on the bed.</li><li>Change bed sheets (upon request and if available).</li><li>Dust dressing tables, nightstands, and picture frames.</li><li>HVacuum or mop the floor thoroughly.</li><li>Collect dirty laundry into baskets (if available).</li></ul>"
       },
       {
-        "tab_title": "Phòng Tắm",
+        "tab_title": "Bathroom",
         "image_url": "https://res.cloudinary.com/dxtwiciz0/image/upload/v1764079305/cleaning-service/mi4bql402c6massotyjt.jpg",
-        "description": "<ul><li>Cọ rửa sạch sẽ bồn cầu (toilet), khử mùi.</li><li>Vệ sinh lavabo, vòi nước, bồn tắm/vách kính tắm.</li><li>Lau sáng gương soi và các kệ để đồ.</li><li>Cọ sạch sàn nhà tắm và tường men.</li><li>Sắp xếp khăn tắm, bổ sung giấy vệ sinh (nếu có).</li></ul>"
+        "description": "<ul><li>Scrub and deodorize the toilet.</li><li>Clean the sink, faucet, bathtub/shower glass panels.</li><li>Polish mirrors and shelves.</li><li>Scrub bathroom floors and tile walls.</li><li>Organize towels and restock toilet paper (if available).</li></ul>"
       }
     ]
   }
 },
-  {"type": "booking", "order": 3, "data": {"title": "Đặt lịch ngay", "button_text": "Đặt ngay", "image_url":"https://res.cloudinary.com/dxtwiciz0/image/upload/v1764079886/cleaning-service/wfupg0vbm9fqdu0kr6mi.jpg","form_schema": [{"field_name": "subservice_id", "field_type": "select", "label": "Chọn gói", "required": true, "options": ["2br", "3br"]}, {"field_name": "booking_date", "field_type": "date", "label": "Ngày làm", "required": true}, {"field_name": "booking_time", "field_type": "time", "label": "Giờ làm", "required": true}, {"field_name": "address", "field_type": "text", "label": "Địa chỉ", "required": true}, {"field_name": "phone", "field_type": "text", "label": "SĐT", "required": true}]}}
+  {"type": "booking", "order": 3, "data": {"title": "Get a Quote", "button_text": "Submit Request", "image_url":"https://res.cloudinary.com/dxtwiciz0/image/upload/v1764079886/cleaning-service/wfupg0vbm9fqdu0kr6mi.jpg","form_schema": [{"field_name": "name", "field_type": "text", "label": "Name", "required": true}, {"field_name": "address", "field_type": "text", "label": "Address", "required": true}, {"field_name": "phone", "field_type": "text", "label": "Phone number", "required": true}, {"field_name": "subservice_id", "field_type": "select", "label": "Select Package", "required": true, "options": ["2 bedroom", "3bedroom"]}, {"field_name": "booking_date", "field_type": "date", "label": "Cleaning Date", "required": true}, {"field_name": "booking_time", "field_type": "time", "label": "Cleaning Time", "required": true}]}}
 ]'::jsonb);
 
 -- Services: Chuyển nhà (ID 2)
 -- 🔥 Đã đồng bộ ID "truck_0t5" để khớp với code test Postman của bạn
 INSERT INTO services (name, description, base_price, duration_minutes, is_active, layout_config) VALUES
-('Chuyển nhà trọn gói', 'Chuyển nhà nhanh trọn gói giá rẻ', 500000, 300, true,
+('Full-package House Moving', 'Fast & Affordable Full-service House Moving', 500000, 300, true,
 '[
-  {"type": "intro", "order": 0, "data": {"title": "Dịch vụ Chuyển nhà", "banner_image_url": "https://res.cloudinary.com/dxtwiciz0/image/upload/v1764078515/cleaning-service/xz3eyhsysrle6xowniga.png"}},
-  {"type": "pricing", "order": 1, "data": {"service_title": "Bảng giá xe", "note": "Chưa gồm bốc xếp", "subservices": [{"id": "truck_0t5", "subservice_title": "Xe 500kg", "price": 350000}, {"id": "truck_1t5", "subservice_title": "Xe 1.5 Tấn", "price": 800000}, {"id": "truck_2t", "subservice_title": "Xe 2 Tấn", "price": 1200000}]}},
+  {"type": "intro", "order": 0, "data": {"title": "House Moving Service", "banner_image_url": "https://res.cloudinary.com/dxtwiciz0/image/upload/v1764078514/cleaning-service/udypphvg2lixgrmcwjyx.jpg"}},
+  {"type": "pricing", "order": 1, "data": {"service_title": "Vehicle Pricing", "note": "Vehicle prices shown are for transportation only and exclude loading/unloading labor. Costs may vary depending on the quantity and weight of your items, floor access, elevator availability, and the need for special care when handling fragile or oversized belongings.", "subservices": [{"id": "truck_0t5", "subservice_title": "500kg Truck", "price": 350000}, {"id": "truck_1t5", "subservice_title": "1.5 Ton Truck", "price": 800000}, {"id": "truck_2t", "subservice_title": "2 Ton Truck", "price": 1200000}]}},
   {
   "type": "process",
   "order": 2,
   "data": {
-    "title": "Quy trình chuyển nhà tiêu chuẩn",
+    "title": "Standard House Moving Process",
     "steps": [
       {
         "number": 1,
-        "step_title": "Đóng gói & Phân loại",
-        "description": "Đội ngũ nhân viên đến đúng giờ, tiến hành phân loại tài sản và đóng gói cẩn thận vào thùng carton chuyên dụng. Các đồ đạc dễ vỡ sẽ được bọc lót kỹ lưỡng để đảm bảo an toàn tuyệt đối.",
+        "step_title": "Packing & Sorting",
+        "description": "Our team arrives on time to sort your belongings and carefully pack them into specialized cardboard boxes. Fragile items are wrapped and cushioned thoroughly to ensure maximum protection.",
         "image_url": "https://res.cloudinary.com/dxtwiciz0/image/upload/v1764078513/cleaning-service/x0jpi1tx3deweqtogzbr.jpg"
       },
       {
         "number": 2,
-        "step_title": "Vận chuyển an toàn",
-        "description": "Sử dụng hệ thống xe tải thùng kín chuyên dụng cùng đội ngũ tài xế giàu kinh nghiệm. Hàng hóa được sắp xếp khoa học trên xe để tránh va đập trong quá trình di chuyển đến địa điểm mới.",
+        "step_title": "Safe Transportation",
+        "description": "We use specialized closed-box trucks operated by experienced drivers. Your belongings are arranged systematically inside the truck to prevent shifting or damage during the move to the new location.",
         "image_url": "https://res.cloudinary.com/dxtwiciz0/image/upload/v1764078513/cleaning-service/taeptiurt1v5qy3usssl.jpg"
       },
       {
         "number": 3,
-        "step_title": "Nghiệm thu & Bàn giao",
-        "description": "Tại nhà mới, nhân viên hỗ trợ bê đồ vào các phòng theo yêu cầu. Khách hàng cùng nhân viên rà soát lại tài sản theo danh sách kiểm kê trước khi ký biên bản nghiệm thu và thanh toán.",
+        "step_title": "Inspection & Handover",
+        "description": "At the new home, our staff assists in carrying items into the designated rooms as requested. Customers and staff jointly check all belongings based on the inventory list before signing the handover report and completing payment.",
         "image_url": "https://res.cloudinary.com/dxtwiciz0/image/upload/v1764078512/cleaning-service/zbzjbqejppwmuzhoeyaq.jpg"
       }
     ]
   }
 },
-  {"type": "booking", "order": 3, "data": {"title": "Nhận báo giá","image_url":"https://res.cloudinary.com/dxtwiciz0/image/upload/v1764079886/cleaning-service/wfupg0vbm9fqdu0kr6mi.jpg", "button_text": "Gửi yêu cầu", "form_schema": [{"field_name": "subservice_id", "field_type": "select", "label": "Loại xe", "required": true, "options": ["truck_0t5", "truck_1t5", "truck_2t"]}, {"field_name": "from_address", "field_type": "text", "label": "Điểm đi", "required": true}, {"field_name": "to_address", "field_type": "text", "label": "Điểm đến", "required": true}, {"field_name": "booking_date", "field_type": "date", "label": "Ngày chuyển", "required": true}, {"field_name": "booking_time", "field_type": "time", "label": "Giờ chuyển", "required": true}, {"field_name": "phone", "field_type": "text", "label": "SĐT", "required": true}]}}
+  {"type": "booking", "order": 3, "data": {"title": "Get a Quote","image_url":"https://res.cloudinary.com/dxtwiciz0/image/upload/v1764079886/cleaning-service/wfupg0vbm9fqdu0kr6mi.jpg", "button_text": "Submit Request", "form_schema": [{"field_name": "name", "field_type": "text", "label": "Name", "required": true}, {"field_name": "from_address", "field_type": "text", "label": "Pickup Address", "required": true}, {"field_name": "to_address", "field_type": "text", "label": "Drop-off Address", "required": true}, {"field_name": "booking_date", "field_type": "date", "label": "Moving Date", "required": true}, {"field_name": "booking_time", "field_type": "time", "label": "Moving Time", "required": true}, {"field_name": "phone", "field_type": "text", "label": "Phone Number", "required": true}, {"field_name": "subservice_id", "field_type": "select", "label": "Vehicle Type", "required": true, "options": ["truck_0t5", "truck_1t5", "truck_2t"]}]}}
 ]'::jsonb);
