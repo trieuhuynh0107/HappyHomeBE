@@ -94,8 +94,7 @@ const updateStatus = async (req, res, next) => {
         if (!booking) return res.status(404).json({ message: 'Not found' });
 
         // Validate Status Flow
-        if (status === 'IN_PROGRESS' && booking.status !== 'CONFIRMED') return res.status(400).json({ message: 'Phải CONFIRMED mới được START' });
-        if (status === 'COMPLETED' && booking.status !== 'IN_PROGRESS') return res.status(400).json({ message: 'Phải IN_PROGRESS mới được COMPLETE' });
+        if (status === 'COMPLETED' && booking.status !== 'CONFIRMED') return res.status(400).json({ message: 'Phải CONFIRMED mới được COMPLETE' });
 
         booking.status = status;
         await booking.save();
@@ -159,7 +158,7 @@ const cancelBooking = async (req, res, next) => {
         const booking = await Booking.findOne({ where: { id, customer_id: customerId } });
         if (!booking) return res.status(404).json({ success: false, message: 'Not found' });
 
-        if (['COMPLETED', 'CANCELLED', 'IN_PROGRESS'].includes(booking.status)) {
+        if (['COMPLETED', 'CANCELLED'].includes(booking.status)) {
              return res.status(400).json({ success: false, message: 'Không thể hủy đơn này.' });
         }
 

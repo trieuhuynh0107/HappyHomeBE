@@ -220,7 +220,7 @@ router.post('/', authenticate, validateBookingRequest, bookingController.createB
  *
  * @apiHeader {String} Authorization JWT token với format: Bearer {token}
  *
- * @apiQuery {String="PENDING","CONFIRMED","IN_PROGRESS","COMPLETED","CANCELLED"} [status] Lọc theo trạng thái booking (optional)
+ * @apiQuery {String="PENDING","CONFIRMED","COMPLETED","CANCELLED"} [status] Lọc theo trạng thái booking (optional)
  *
  * @apiExample {curl} Example - Get All Bookings:
  * curl -i -X GET http://localhost:3000/api/bookings \
@@ -436,7 +436,7 @@ router.get('/:id', authenticate, bookingController.getBookingDetail);
  * @apiGroup Bookings
  * @apiPermission Customer (JWT Token Required)
  *
- * @apiDescription Hủy một booking. Chỉ có thể hủy booking có trạng thái PENDING hoặc CONFIRMED. Booking phải được hủy trước ít nhất 2 tiếng so với thời gian bắt đầu dịch vụ. Không thể hủy booking đã COMPLETED, CANCELLED hoặc IN_PROGRESS.
+ * @apiDescription Hủy một booking. Chỉ có thể hủy booking có trạng thái PENDING hoặc CONFIRMED. Booking phải được hủy trước ít nhất 2 tiếng so với thời gian bắt đầu dịch vụ. Không thể hủy booking đã COMPLETED, CANCELLED.
  *
  * @apiHeader {String} Authorization JWT token với format: Bearer {token}
  *
