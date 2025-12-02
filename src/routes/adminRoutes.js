@@ -417,12 +417,12 @@ router.delete('/services/:id', idParamValidation, validate, serviceController.de
  *
  * @apiHeader {String} Authorization Bearer token của Admin
  *
- * @apiParam (Body - FormData) {String} name Tên nhân viên (bắt buộc)
- * @apiParam (Body - FormData) {String} phone Số điện thoại (bắt buộc, unique)
- * @apiParam (Body - FormData) {String} [email] Email nhân viên (optional)
- * @apiParam (Body - FormData) {String} [address] Địa chỉ nhân viên (optional)
- * @apiParam (Body - FormData) {String="ACTIVE","INACTIVE","ON_LEAVE"} [status=ACTIVE] Trạng thái hoạt động (optional, default: ACTIVE)
- * @apiParam (Body - FormData) {File} [avatar] Ảnh đại diện (optional, max 5MB)
+ * @apiBody {String} name Tên nhân viên (bắt buộc)
+ * @apiBody {String} phone Số điện thoại (bắt buộc, unique)
+ * @apiBody {String} [email] Email nhân viên (optional)
+ * @apiBody {String} [address] Địa chỉ nhân viên (optional)
+ * @apiBody {String="ACTIVE","INACTIVE","ON_LEAVE"} [status=ACTIVE] Trạng thái hoạt động (optional, default: ACTIVE)
+ * @apiBody {File} [avatar] Ảnh đại diện (optional, max 5MB)
  *
  * @apiExample {curl} Example usage:
  * curl -X POST http://localhost:3000/api/admin/cleaners \
@@ -613,7 +613,7 @@ router.get('/cleaners/:id', cleanerController.getCleanerById);
  * @apiHeader {String} Authorization Bearer token của Admin
  *
  * @apiParam (URL Param) {Number} id ID của nhân viên
- * @apiParam (Body) {String="ACTIVE","INACTIVE","ON_LEAVE"} status Trạng thái mới
+ * @apiBody  {String="ACTIVE","INACTIVE","ON_LEAVE"} status Trạng thái mới
  *
  * @apiExample {curl} Example usage:
  * curl -X PUT http://localhost:3000/api/admin/cleaners/5/status \
@@ -846,8 +846,8 @@ router.get('/bookings/:bookingId/available-cleaners', bookingController.getAvail
  *
  * @apiHeader {String} Authorization Bearer token của Admin
  *
- * @apiParam (Body) {Number} booking_id ID của booking cần gán
- * @apiParam (Body) {Number} cleaner_id ID của nhân viên được gán
+ * @apiBody {Number} booking_id ID của booking cần gán
+ * @apiBody {Number} cleaner_id ID của nhân viên được gán
  *
  * @apiExample {curl} Example usage:
  * curl -X POST http://localhost:3000/api/admin/bookings/assign \
@@ -912,8 +912,8 @@ router.post('/bookings/assign', bookingController.assignCleaner);
  *
  * @apiHeader {String} Authorization Bearer token của Admin
  *
- * @apiParam (URL Param) {Number} id ID của booking
- * @apiParam (Body) {String="PENDING","CONFIRMED","IN_PROGRESS","COMPLETED","CANCELLED"} status Trạng thái mới
+ * @apiParam {Number} id ID của booking
+ * @apiBody {String="PENDING","CONFIRMED","IN_PROGRESS","COMPLETED","CANCELLED"} status Trạng thái mới
  *
  * @apiExample {curl} Example usage:
  * curl -X PUT http://localhost:3000/api/admin/bookings/15/status \

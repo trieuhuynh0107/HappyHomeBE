@@ -27,7 +27,7 @@ const upload = getUploadMiddleware();
  *
  * @apiBody {File} image File ảnh (form-data field name: "image")
  *
- * @apiParam (Body - FormData) {File} image File ảnh cần upload
+ * @apiBody {File} image File ảnh cần upload
  * - Định dạng chấp nhận: jpeg, jpg, png, gif, webp
  * - Kích thước tối đa: 5MB
  *
@@ -107,7 +107,7 @@ router.post('/image', upload.single('image'), uploadController.uploadImage);
  *
  * @apiBody {File[]} images Danh sách file ảnh (form-data field name: "images")
  *
- * @apiParam (Body - FormData) {File[]} images Mảng file ảnh cần upload
+ * @apiBody  {File[]} images Mảng file ảnh cần upload
  * - Số lượng tối đa: 10 ảnh/request
  * - Định dạng chấp nhận: jpeg, jpg, png, gif, webp
  * - Kích thước tối đa mỗi file: 5MB
