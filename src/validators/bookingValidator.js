@@ -79,4 +79,4 @@ const validateBookingRequest = (req, res, next) => {
     }
 };
 
-module.exports = validateBookingRequest;
+module.exports = {validateBookingRequest};
