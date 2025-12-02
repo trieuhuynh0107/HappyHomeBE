@@ -31,7 +31,7 @@ const { validateBookingRequest } = require('../validators/bookingValidator');
  * @apiBody {String} [booking_data.to_address] Địa chỉ đến (cho dịch vụ Moving)
  *
  * @apiExample {curl} Example - Home Cleaning Service:
- * curl -i -X POST http://localhost:3000/api/bookings \
+ * curl -i -X POST https://hello-node-render.onrender.com/api/bookings \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
  *   -H "Content-Type: application/json" \
  *   -d '{
@@ -48,7 +48,7 @@ const { validateBookingRequest } = require('../validators/bookingValidator');
  *   }'
  *
  * @apiExample {curl} Example - Moving Service:
- * curl -i -X POST http://localhost:3000/api/bookings \
+ * curl -i -X POST https://hello-node-render.onrender.com/api/bookings \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
  *   -H "Content-Type: application/json" \
  *   -d '{
@@ -223,11 +223,11 @@ router.post('/', authenticate, validateBookingRequest, bookingController.createB
  * @apiQuery {String="PENDING","CONFIRMED","COMPLETED","CANCELLED"} [status] Lọc theo trạng thái booking (optional)
  *
  * @apiExample {curl} Example - Get All Bookings:
- * curl -i -X GET http://localhost:3000/api/bookings \
+ * curl -i -X GET https://hello-node-render.onrender.com/api/bookings \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiExample {curl} Example - Filter by Status:
- * curl -i -X GET "http://localhost:3000/api/bookings?status=PENDING" \
+ * curl -i -X GET "https://hello-node-render.onrender.com/api/bookings?status=PENDING" \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiSuccess {Boolean} success Trạng thái thành công (true)
@@ -340,7 +340,7 @@ router.get('/', authenticate, bookingController.getMyBookings);
  * @apiParam {Number} id ID của booking cần lấy chi tiết
  *
  * @apiExample {curl} Example usage:
- * curl -i -X GET http://localhost:3000/api/bookings/15 \
+ * curl -i -X GET https://hello-node-render.onrender.com/api/bookings/15 \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiSuccess {Boolean} success Trạng thái thành công (true)
@@ -445,12 +445,12 @@ router.get('/:id', authenticate, bookingController.getBookingDetail);
  * @apiBody {String} [cancel_reason] Lý do hủy booking (optional, max 500 ký tự)
  *
  * @apiExample {curl} Example - Cancel without reason:
- * curl -i -X PUT http://localhost:3000/api/bookings/15/cancel \
+ * curl -i -X PUT https://hello-node-render.onrender.com/api/bookings/15/cancel \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
  *   -H "Content-Type: application/json"
  *
  * @apiExample {curl} Example - Cancel with reason:
- * curl -i -X PUT http://localhost:3000/api/bookings/15/cancel \
+ * curl -i -X PUT https://hello-node-render.onrender.com/api/bookings/15/cancel \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
  *   -H "Content-Type: application/json" \
  *   -d '{

@@ -32,7 +32,7 @@ const upload = getUploadMiddleware();
  * - Kích thước tối đa: 5MB
  *
  * @apiExample {curl} Example usage:
- * curl -X POST http://localhost:3000/api/upload/image \
+ * curl -X POST https://hello-node-render.onrender.com/api/upload/image \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
  *   -F "image=@/path/to/image.jpg"
  *
@@ -113,7 +113,7 @@ router.post('/image', upload.single('image'), uploadController.uploadImage);
  * - Kích thước tối đa mỗi file: 5MB
  *
  * @apiExample {curl} Example usage:
- * curl -X POST http://localhost:3000/api/upload/images \
+ * curl -X POST https://hello-node-render.onrender.com/api/upload/images \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
  *   -F "images=@/path/to/image1.jpg" \
  *   -F "images=@/path/to/image2.jpg" \

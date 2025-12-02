@@ -23,7 +23,7 @@ const { idParamValidation, validate } = require('../validators/serviceValidator'
  * (không bao gồm layout_config).
  *
  * @apiExample {curl} Example usage:
- * curl -i http://localhost:3000/api/services
+ * curl -i https://hello-node-render.onrender.com/api/services
  *
  * @apiSuccess {Boolean} success Trạng thái thành công (luôn là true)
  * @apiSuccess {Object} data Dữ liệu trả về
@@ -84,7 +84,7 @@ router.get('/', serviceController.getPublicServices);
  * @apiParam {Number} id ID của dịch vụ cần lấy (trong URL params)
  *
  * @apiExample {curl} Example usage:
- * curl -i http://localhost:3000/api/services/1
+ * curl -i https://hello-node-render.onrender.com/api/services/1
  *
  * @apiSuccess {Boolean} success Trạng thái thành công (luôn là true)
  * @apiSuccess {Object} data Dữ liệu trả về

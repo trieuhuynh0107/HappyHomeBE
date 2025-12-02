@@ -24,7 +24,7 @@ const {
  * @apiBody {String} [phone] Số điện thoại (optional, phải là 10-11 chữ số nếu có)
  *
  * @apiExample {curl} Example usage:
- * curl -i -X POST http://localhost:3000/api/auth/register \
+ * curl -i -X POST https://hello-node-render.onrender.com/api/auth/register \
  *   -H "Content-Type: application/json" \
  *   -d '{
  *     "email": "customer@example.com",
@@ -109,7 +109,7 @@ router.post(
  * @apiBody {String} password Mật khẩu
  *
  * @apiExample {curl} Example usage:
- * curl -i -X POST http://localhost:3000/api/auth/login \
+ * curl -i -X POST https://hello-node-render.onrender.com/api/auth/login \
  *   -H "Content-Type: application/json" \
  *   -d '{
  *     "email": "customer@example.com",
@@ -196,7 +196,7 @@ router.post(
  *     }
  *
  * @apiExample {curl} Example usage:
- * curl -i -X GET http://localhost:3000/api/auth/me \
+ * curl -i -X GET https://hello-node-render.onrender.com/api/auth/me \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiSuccess {Boolean} success Trạng thái thành công (true)

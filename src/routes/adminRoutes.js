@@ -46,7 +46,7 @@ router.use(adminOnly);
  * @apiHeader {String} Authorization Bearer token của Admin
  *
  * @apiExample {curl} Example usage:
- * curl -i http://localhost:3000/api/admin/services/block-schemas \
+ * curl -i https://hello-node-render.onrender.com/api/admin/services/block-schemas \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiSuccess {Boolean} success Trạng thái thành công
@@ -102,7 +102,7 @@ router.get('/services/block-schemas', serviceController.getBlockSchemas);
  * @apiParam (Query) {String="active","inactive"} [status] Lọc theo trạng thái dịch vụ
  *
  * @apiExample {curl} Example usage:
- * curl -i http://localhost:3000/api/admin/services?status=active \
+ * curl -i https://hello-node-render.onrender.com/api/admin/services?status=active \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiSuccess {Boolean} success Trạng thái thành công
@@ -154,7 +154,7 @@ router.get('/services', serviceController.getAdminServices);
  * @apiParam (URL Params) {Number} id ID của dịch vụ
  *
  * @apiExample {curl} Example usage:
- * curl -i http://localhost:3000/api/admin/services/1 \
+ * curl -i https://hello-node-render.onrender.com/api/admin/services/1 \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiSuccess {Boolean} success Trạng thái thành công
@@ -185,7 +185,7 @@ router.get('/services/:id', idParamValidation, validate, serviceController.getSe
  * @apiBody {Object[]} [layout_config] Cấu hình layout (array of blocks)
  *
  * @apiExample {curl} Example usage:
- * curl -X POST http://localhost:3000/api/admin/services \
+ * curl -X POST https://hello-node-render.onrender.com/api/admin/services \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
  *   -H "Content-Type: application/json" \
  *   -d '{
@@ -258,7 +258,7 @@ router.post('/services', createServiceValidation, validate, serviceController.cr
  * @apiBody {Object[]} [layout_config] Cấu hình layout
  *
  * @apiExample {curl} Example usage:
- * curl -X PUT http://localhost:3000/api/admin/services/1 \
+ * curl -X PUT https://hello-node-render.onrender.com/api/admin/services/1 \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
  *   -H "Content-Type: application/json" \
  *   -d '{"base_price": 180000}'
@@ -299,7 +299,7 @@ router.put('/services/:id', updateServiceValidation, validate, serviceController
  * @apiBody {Object[]} layout_config Cấu hình layout mới (array of blocks)
  *
  * @apiExample {curl} Example usage:
- * curl -X PUT http://localhost:3000/api/admin/services/1/layout \
+ * curl -X PUT https://hello-node-render.onrender.com/api/admin/services/1/layout \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
  *   -H "Content-Type: application/json" \
  *   -d '{"layout_config": [...]}'
@@ -337,7 +337,7 @@ router.put('/services/:id/layout', idParamValidation, validate, serviceControlle
  * @apiParam (URL Params) {Number} id ID của dịch vụ
  *
  * @apiExample {curl} Example usage:
- * curl -X PATCH http://localhost:3000/api/admin/services/1/toggle \
+ * curl -X PATCH https://hello-node-render.onrender.com/api/admin/services/1/toggle \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiSuccess {Boolean} success Trạng thái thành công
@@ -376,7 +376,7 @@ router.patch('/services/:id/toggle', idParamValidation, validate, serviceControl
  * @apiParam (URL Params) {Number} id ID của dịch vụ
  *
  * @apiExample {curl} Example usage:
- * curl -X DELETE http://localhost:3000/api/admin/services/1 \
+ * curl -X DELETE https://hello-node-render.onrender.com/api/admin/services/1 \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiSuccess {Boolean} success Trạng thái thành công
@@ -425,7 +425,7 @@ router.delete('/services/:id', idParamValidation, validate, serviceController.de
  * @apiBody {File} [avatar] Ảnh đại diện (optional, max 5MB)
  *
  * @apiExample {curl} Example usage:
- * curl -X POST http://localhost:3000/api/admin/cleaners \
+ * curl -X POST https://hello-node-render.onrender.com/api/admin/cleaners \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
  *   -F "name=Nguyen Van A" \
  *   -F "phone=0901234567" \
@@ -497,11 +497,11 @@ router.post('/cleaners', upload.single('avatar'), cleanerController.createCleane
  * @apiParam (Query) {String="ACTIVE","INACTIVE","ON_LEAVE"} [status] Lọc theo trạng thái (optional)
  *
  * @apiExample {curl} Example usage (All cleaners):
- * curl -X GET http://localhost:3000/api/admin/cleaners \
+ * curl -X GET https://hello-node-render.onrender.com/api/admin/cleaners \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiExample {curl} Example usage (Filter by status):
- * curl -X GET http://localhost:3000/api/admin/cleaners?status=ACTIVE \
+ * curl -X GET https://hello-node-render.onrender.com/api/admin/cleaners?status=ACTIVE \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiSuccess {Boolean} success Trạng thái thành công
@@ -559,7 +559,7 @@ router.get('/cleaners', cleanerController.getAllCleaners);
  * @apiParam (URL Param) {Number} id ID của nhân viên
  *
  * @apiExample {curl} Example usage:
- * curl -X GET http://localhost:3000/api/admin/cleaners/5 \
+ * curl -X GET https://hello-node-render.onrender.com/api/admin/cleaners/5 \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiSuccess {Boolean} success Trạng thái thành công
@@ -616,7 +616,7 @@ router.get('/cleaners/:id', cleanerController.getCleanerById);
  * @apiBody  {String="ACTIVE","INACTIVE","ON_LEAVE"} status Trạng thái mới
  *
  * @apiExample {curl} Example usage:
- * curl -X PUT http://localhost:3000/api/admin/cleaners/5/status \
+ * curl -X PUT https://hello-node-render.onrender.com/api/admin/cleaners/5/status \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
  *   -H "Content-Type: application/json" \
  *   -d '{"status": "ON_LEAVE"}'
@@ -691,11 +691,11 @@ module.exports = router;
  * @apiParam (Query) {String} [search] Tìm kiếm theo ID/location/note
  *
  * @apiExample {curl} Example usage (All bookings):
- * curl -X GET "http://localhost:3000/api/admin/bookings?page=1&limit=10" \
+ * curl -X GET "https://hello-node-render.onrender.com/api/admin/bookings?page=1&limit=10" \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiExample {curl} Example usage (Filter):
- * curl -X GET "http://localhost:3000/api/admin/bookings?status=PENDING&date=2024-01-20" \
+ * curl -X GET "https://hello-node-render.onrender.com/api/admin/bookings?status=PENDING&date=2024-01-20" \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiSuccess {Boolean} success Trạng thái thành công
@@ -785,7 +785,7 @@ router.get('/bookings', bookingController.getAllBookings);
  * @apiParam (URL Param) {Number} bookingId ID của booking cần gán nhân viên
  *
  * @apiExample {curl} Example usage:
- * curl -X GET http://localhost:3000/api/admin/bookings/15/available-cleaners \
+ * curl -X GET https://hello-node-render.onrender.com/api/admin/bookings/15/available-cleaners \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiSuccess {Boolean} success Trạng thái thành công
@@ -850,7 +850,7 @@ router.get('/bookings/:bookingId/available-cleaners', bookingController.getAvail
  * @apiBody {Number} cleaner_id ID của nhân viên được gán
  *
  * @apiExample {curl} Example usage:
- * curl -X POST http://localhost:3000/api/admin/bookings/assign \
+ * curl -X POST https://hello-node-render.onrender.com/api/admin/bookings/assign \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
  *   -H "Content-Type: application/json" \
  *   -d '{"booking_id": 15, "cleaner_id": 5}'
@@ -916,7 +916,7 @@ router.post('/bookings/assign', bookingController.assignCleaner);
  * @apiBody {String="PENDING","CONFIRMED","IN_PROGRESS","COMPLETED","CANCELLED"} status Trạng thái mới
  *
  * @apiExample {curl} Example usage:
- * curl -X PUT http://localhost:3000/api/admin/bookings/15/status \
+ * curl -X PUT https://hello-node-render.onrender.com/api/admin/bookings/15/status \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
  *   -H "Content-Type: application/json" \
  *   -d '{"status": "IN_PROGRESS"}'
@@ -968,7 +968,7 @@ router.put('/bookings/:id/status', bookingController.updateStatus);
  *     }
  *
  * @apiExample {curl} Example usage:
- * curl -i -X GET http://localhost:3000/api/admin/stats/dashboard \
+ * curl -i -X GET https://hello-node-render.onrender.com/api/admin/stats/dashboard \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *
  * @apiSuccess {Boolean} success Trạng thái thành công (true)
