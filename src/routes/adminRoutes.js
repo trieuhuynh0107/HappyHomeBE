@@ -686,7 +686,7 @@ module.exports = router;
  *
  * @apiParam (Query) {Number} [page=1] Số trang (pagination)
  * @apiParam (Query) {Number} [limit=10] Số lượng booking mỗi trang
- * @apiParam (Query) {String="PENDING","CONFIRMED","IN_PROGRESS","COMPLETED","CANCELLED"} [status] Lọc theo trạng thái
+ * @apiParam (Query) {String="PENDING","CONFIRMED","COMPLETED","CANCELLED"} [status] Lọc theo trạng thái
  * @apiParam (Query) {String} [date] Lọc theo ngày (format: YYYY-MM-DD)
  * @apiParam (Query) {String} [search] Tìm kiếm theo ID/location/note
  *
@@ -907,19 +907,18 @@ router.post('/bookings/assign', bookingController.assignCleaner);
  * @apiPermission admin
  *
  * @apiDescription Cập nhật trạng thái booking. Có validate luồng chuyển trạng thái:
- * - IN_PROGRESS: Chỉ chuyển được từ CONFIRMED
- * - COMPLETED: Chỉ chuyển được từ IN_PROGRESS
+ * - COMPLETED: Chỉ chuyển được từ CONFIRMED
  *
  * @apiHeader {String} Authorization Bearer token của Admin
  *
  * @apiParam {Number} id ID của booking
- * @apiBody {String="PENDING","CONFIRMED","IN_PROGRESS","COMPLETED","CANCELLED"} status Trạng thái mới
+ * @apiBody {String="PENDING","CONFIRMED","COMPLETED","CANCELLED"} status Trạng thái mới
  *
  * @apiExample {curl} Example usage:
  * curl -X PUT https://hello-node-render.onrender.com/api/admin/bookings/15/status \
  *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
  *   -H "Content-Type: application/json" \
- *   -d '{"status": "IN_PROGRESS"}'
+ *   -d '{"status": "COMPLETED"}'
  *
  * @apiSuccess {Boolean} success Trạng thái thành công
  * @apiSuccess {String} message Thông báo cập nhật thành công
@@ -979,7 +978,7 @@ router.put('/bookings/:id/status', bookingController.updateStatus);
  * @apiSuccess {Number} data.summary.total_customers Tổng số khách hàng (role CUSTOMER)
  * @apiSuccess {Object} data.charts Dữ liệu cho biểu đồ
  * @apiSuccess {Object[]} data.charts.by_status Phân bố đơn hàng theo trạng thái
- * @apiSuccess {String} data.charts.by_status.status Trạng thái (PENDING, CONFIRMED, IN_PROGRESS, COMPLETED, CANCELLED)
+ * @apiSuccess {String} data.charts.by_status.status Trạng thái (PENDING, CONFIRMED, COMPLETED, CANCELLED)
  * @apiSuccess {Number} data.charts.by_status.count Số lượng đơn theo trạng thái
  * @apiSuccess {Object[]} data.charts.top_services Top 5 dịch vụ bán chạy nhất
  * @apiSuccess {Number} data.charts.top_services.service_id ID của dịch vụ
@@ -1015,10 +1014,6 @@ router.put('/bookings/:id/status', bookingController.updateStatus);
  *             {
  *               "status": "CONFIRMED",
  *               "count": 12
- *             },
- *             {
- *               "status": "IN_PROGRESS",
- *               "count": 3
  *             },
  *             {
  *               "status": "COMPLETED",
