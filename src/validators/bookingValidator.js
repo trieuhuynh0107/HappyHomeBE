@@ -3,7 +3,6 @@ require('dotenv').config();
 
 const validateBookingRequest = (req, res, next) => {
     try {
-        // 🔥 THAY ĐỔI: Lấy booking_data thay vì start_time
         const { booking_data } = req.body;
 
         // 1. Kiểm tra cấu trúc dữ liệu
@@ -14,18 +13,19 @@ const validateBookingRequest = (req, res, next) => {
             });
         }
 
-        // 2. Tự ghép chuỗi thời gian để kiểm tra
+        // 2. Tự ghép chuỗi thời gian để kiểm tra Logic quá khứ/tương lai
+        // Format chuẩn ISO cho VN: YYYY-MM-DDTHH:mm:00+07:00
         const timeString = `${booking_data.booking_date}T${booking_data.booking_time}:00+07:00`;
         const bookingDate = new Date(timeString);
         const now = new Date();
 
-        // 3. Kiểm tra định dạng
+        // 3. Kiểm tra định dạng Date
         if (isNaN(bookingDate.getTime())) {
             return res.status(400).json({ success: false, message: "Định dạng thời gian không hợp lệ." });
         }
 
         // ========================================================
-        // 4. LOGIC BUSINESS (Giữ nguyên logic cũ)
+        // 4. LOGIC BUSINESS 
         // ========================================================
         
         const BUFFER_MINUTES = parseInt(process.env.BUFFER_MINUTES || 30);
@@ -33,7 +33,7 @@ const validateBookingRequest = (req, res, next) => {
         const WORK_START_HOUR = parseInt(process.env.WORK_START_HOUR || 7);
         const WORK_END_HOUR = parseInt(process.env.WORK_END_HOUR || 19);
 
-        // --- CHECK A: QUÁ KHỨ & BUFFER ---
+        // --- CHECK A: QUÁ KHỨ & BUFFER (So sánh Timestamp - Không bị ảnh hưởng múi giờ) ---
         const minBookingTime = new Date(now.getTime() + BUFFER_MINUTES * 60000);
 
         if (bookingDate < minBookingTime) {
@@ -53,8 +53,11 @@ const validateBookingRequest = (req, res, next) => {
             });
         }
 
-        // --- CHECK C: GIỜ LÀM VIỆC ---
-        const hour = bookingDate.getHours();
+        // --- CHECK C: GIỜ LÀM VIỆC (SỬA LẠI ĐOẠN NÀY) ---
+        // Thay vì dùng bookingDate.getHours() (bị sai theo múi giờ server)
+        // Ta lấy trực tiếp số giờ từ chuỗi input của user. Ví dụ "07:41" -> lấy số 7.
+        const [hourString, minuteString] = booking_data.booking_time.split(':');
+        const hour = parseInt(hourString); // Luôn ra đúng giờ user chọn (số 7)
         
         if (hour < WORK_START_HOUR || hour >= WORK_END_HOUR) {
              return res.status(400).json({
@@ -63,8 +66,10 @@ const validateBookingRequest = (req, res, next) => {
             });
         }
 
-        // Nếu hợp lệ -> Gán vào req để Controller dùng lại (đỡ phải parse lại lần nữa nếu muốn)
-        // req.parsedStartTime = bookingDate; // (Optional)
+        // Gán lại start_time chuẩn ISO vào req.body để Controller lưu vào DB
+        // Lưu ý: Khi lưu vào DB , nó sẽ tự chuyển về UTC. 
+        // Ví dụ: 2025-03-12T07:41:00+07:00 -> Lưu trong DB là 2025-03-12T00:41:00Z (Đúng bản chất)
+        req.body.start_time = timeString;
 
         next();
 
@@ -74,4 +79,4 @@ const validateBookingRequest = (req, res, next) => {
     }
 };
 
-module.exports = { validateBookingRequest };
+module.exports = validateBookingRequest;
