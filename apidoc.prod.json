@@ -1,0 +1,16 @@
+{
+  "name": "Cleaning Service API - Production",
+  "version": "1.0.0",
+  "description": "API Documentation for Cleaning Service Management System",
+  "title": "Cleaning Service API",
+  "url": "https://hello-node-render.onrender.com",
+  "sampleUrl": "https://hello-node-render.onrender.com  ",
+  "header": {
+    "title": "Getting Started",
+    "filename": "header.md"
+  },
+  "template": {
+    "withCompare": true,
+    "withGenerator": true
+  }
+}

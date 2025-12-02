@@ -7,7 +7,10 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "migrate": "node src/migrations/run.js",
-    "docs": "apidoc -i src/routes -o docs"
+    "docs": "apidoc -i src/routes -o docs -f \".js$\" -c apidoc.dev.json",
+    "docs:dev": "apidoc -i src/routes -o docs -f \".js$\" -c apidoc.dev.json",
+    "docs:prod": "apidoc -i src/routes -o docs -f \".js$\" -c apidoc.prod.json",
+    "docs:watch": "apidoc -i src/routes -o docs --watch -c apidoc.dev.json"
   },
   "keywords": [
     "cleaning",
