@@ -951,6 +951,198 @@ router.put('/bookings/:id/status', bookingController.updateStatus);
 // ============================================
 // 4. STATISTICAL & DASHBOARD
 // ============================================
+/**
+ * @api {GET} /api/admin/stats/dashboard Get Dashboard Statistics
+ * @apiVersion 1.0.0
+ * @apiName GetDashboardStats
+ * @apiGroup Admin - Statistics
+ * @apiPermission Admin (JWT Token Required)
+ *
+ * @apiDescription Lấy tổng quan thống kê cho trang Dashboard của Admin. Bao gồm: tổng doanh thu, số lượng đơn hàng, khách hàng, phân bố theo trạng thái, top dịch vụ bán chạy và hoạt động gần đây.
+ *
+ * @apiHeader {String} Authorization JWT token với format: Bearer {token}
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *     }
+ *
+ * @apiExample {curl} Example usage:
+ * curl -i -X GET http://localhost:3000/api/admin/stats/dashboard \
+ *   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *
+ * @apiSuccess {Boolean} success Trạng thái thành công (true)
+ * @apiSuccess {Object} data Dữ liệu thống kê
+ * @apiSuccess {Object} data.summary Thống kê tổng quan
+ * @apiSuccess {Number} data.summary.total_revenue Tổng doanh thu (chỉ tính đơn COMPLETED)
+ * @apiSuccess {Number} data.summary.total_bookings Tổng số đơn hàng
+ * @apiSuccess {Number} data.summary.total_customers Tổng số khách hàng (role CUSTOMER)
+ * @apiSuccess {Object} data.charts Dữ liệu cho biểu đồ
+ * @apiSuccess {Object[]} data.charts.by_status Phân bố đơn hàng theo trạng thái
+ * @apiSuccess {String} data.charts.by_status.status Trạng thái (PENDING, CONFIRMED, IN_PROGRESS, COMPLETED, CANCELLED)
+ * @apiSuccess {Number} data.charts.by_status.count Số lượng đơn theo trạng thái
+ * @apiSuccess {Object[]} data.charts.top_services Top 5 dịch vụ bán chạy nhất
+ * @apiSuccess {Number} data.charts.top_services.service_id ID của dịch vụ
+ * @apiSuccess {Number} data.charts.top_services.count Số lượng đơn đặt dịch vụ này
+ * @apiSuccess {Object} data.charts.top_services.service Thông tin dịch vụ
+ * @apiSuccess {String} data.charts.top_services.service.name Tên dịch vụ
+ * @apiSuccess {Object[]} data.recent_activity 5 đơn hàng gần nhất
+ * @apiSuccess {Number} data.recent_activity.id ID booking
+ * @apiSuccess {String} data.recent_activity.status Trạng thái booking
+ * @apiSuccess {Number} data.recent_activity.total_price Giá trị đơn hàng
+ * @apiSuccess {String} data.recent_activity.created_at Thời gian tạo (ISO 8601)
+ * @apiSuccess {Object} data.recent_activity.customer Thông tin khách hàng
+ * @apiSuccess {String} data.recent_activity.customer.full_name Tên khách hàng
+ * @apiSuccess {Object} data.recent_activity.service Thông tin dịch vụ
+ * @apiSuccess {String} data.recent_activity.service.name Tên dịch vụ
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "success": true,
+ *       "data": {
+ *         "summary": {
+ *           "total_revenue": 15750000,
+ *           "total_bookings": 45,
+ *           "total_customers": 28
+ *         },
+ *         "charts": {
+ *           "by_status": [
+ *             {
+ *               "status": "PENDING",
+ *               "count": 8
+ *             },
+ *             {
+ *               "status": "CONFIRMED",
+ *               "count": 12
+ *             },
+ *             {
+ *               "status": "IN_PROGRESS",
+ *               "count": 3
+ *             },
+ *             {
+ *               "status": "COMPLETED",
+ *               "count": 18
+ *             },
+ *             {
+ *               "status": "CANCELLED",
+ *               "count": 4
+ *             }
+ *           ],
+ *           "top_services": [
+ *             {
+ *               "service_id": 1,
+ *               "count": 25,
+ *               "service": {
+ *                 "name": "Home Cleaning"
+ *               }
+ *             },
+ *             {
+ *               "service_id": 2,
+ *               "count": 15,
+ *               "service": {
+ *                 "name": "Full-package House Moving"
+ *               }
+ *             },
+ *             {
+ *               "service_id": 3,
+ *               "count": 5,
+ *               "service": {
+ *                 "name": "Laundry Service"
+ *               }
+ *             }
+ *           ]
+ *         },
+ *         "recent_activity": [
+ *           {
+ *             "id": 45,
+ *             "status": "CONFIRMED",
+ *             "total_price": 400000,
+ *             "created_at": "2024-12-02T08:30:00.000Z",
+ *             "customer": {
+ *               "full_name": "Nguyen Van A"
+ *             },
+ *             "service": {
+ *               "name": "Home Cleaning"
+ *             }
+ *           },
+ *           {
+ *             "id": 44,
+ *             "status": "PENDING",
+ *             "total_price": 350000,
+ *             "created_at": "2024-12-02T07:15:00.000Z",
+ *             "customer": {
+ *               "full_name": "Tran Thi B"
+ *             },
+ *             "service": {
+ *               "name": "Full-package House Moving"
+ *             }
+ *           },
+ *           {
+ *             "id": 43,
+ *             "status": "COMPLETED",
+ *             "total_price": 550000,
+ *             "created_at": "2024-12-01T15:20:00.000Z",
+ *             "customer": {
+ *               "full_name": "Le Van C"
+ *             },
+ *             "service": {
+ *               "name": "Home Cleaning"
+ *             }
+ *           },
+ *           {
+ *             "id": 42,
+ *             "status": "COMPLETED",
+ *             "total_price": 800000,
+ *             "created_at": "2024-12-01T14:00:00.000Z",
+ *             "customer": {
+ *               "full_name": "Pham Thi D"
+ *             },
+ *             "service": {
+ *               "name": "Full-package House Moving"
+ *             }
+ *           },
+ *           {
+ *             "id": 41,
+ *             "status": "CANCELLED",
+ *             "total_price": 400000,
+ *             "created_at": "2024-12-01T10:00:00.000Z",
+ *             "customer": {
+ *               "full_name": "Hoang Van E"
+ *             },
+ *             "service": {
+ *               "name": "Home Cleaning"
+ *             }
+ *           }
+ *         ]
+ *       }
+ *     }
+ *
+ * @apiError (401) Unauthorized Token không hợp lệ hoặc đã hết hạn
+ * @apiError (403) Forbidden User không có quyền Admin
+ * @apiError (500) InternalServerError Lỗi server
+ *
+ * @apiErrorExample Unauthorized:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "success": false,
+ *       "message": "Token không hợp lệ"
+ *     }
+ *
+ * @apiErrorExample Forbidden:
+ *     HTTP/1.1 403 Forbidden
+ *     {
+ *       "success": false,
+ *       "message": "Bạn không có quyền truy cập"
+ *     }
+ *
+ * @apiErrorExample Internal Server Error:
+ *     HTTP/1.1 500 Internal Server Error
+ *     {
+ *       "success": false,
+ *       "message": "Đã xảy ra lỗi khi lấy thống kê"
+ *     }
+ */
 router.get('/stats/dashboard', adminStatisticalController.getDashboardStats);
 
 module.exports = router;
